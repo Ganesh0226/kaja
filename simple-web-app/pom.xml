@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -6,7 +7,7 @@
     <groupId>com.example</groupId>
     <artifactId>simple-web-app</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- Servlet API for creating the servlet -->
@@ -17,7 +18,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jetty Server for running the web app -->
+        <!-- Jetty Server for running the web app (embedded) -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
@@ -29,7 +30,7 @@
             <artifactId>jetty-servlet</artifactId>
             <version>9.4.44.v20210927</version>
         </dependency>
-        
+
         <!-- Jetty Maven plugin to run Jetty server directly from Maven -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -41,31 +42,18 @@
 
     <build>
         <plugins>
-            <!-- Maven WAR plugin to package the project as a WAR file -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
-            </plugin>
-
-            <!-- Maven Jar Plugin (if you need it for specific purposes, otherwise it can be omitted for web apps) -->
+            <!-- Maven Jar Plugin to package the project as a Jar file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
-            </plugin>
-
-            <!-- Jetty Plugin to run the Jetty server -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.44.v20210927</version>
-                <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds> <!-- Auto-redeploy the app on changes -->
-                    <webAppConfig>
-                        <contextPath>/</contextPath> <!-- Set the context path -->
-                    </webAppConfig>
-                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Maven Compiler Plugin to set Java version compatibility -->
@@ -79,6 +67,20 @@
                 </configuration>
             </plugin>
 
+            <!-- Jetty Maven Plugin to run Jetty server embedded in the jar -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.44.v20210927</version>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds> <!-- Auto-redeploy the app on changes -->
+                    <webAppConfig>
+                        <contextPath>/</contextPath> <!-- Set the context path -->
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
+
 </project>
