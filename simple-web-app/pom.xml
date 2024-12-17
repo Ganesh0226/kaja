@@ -30,14 +30,6 @@
             <artifactId>jetty-servlet</artifactId>
             <version>9.4.44.v20210927</version>
         </dependency>
-
-        <!-- Jetty Maven plugin to run Jetty server directly from Maven -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>9.4.44.v20210927</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -50,7 +42,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar</goal> <!-- Goal for packaging the project as JAR -->
                         </goals>
                     </execution>
                 </executions>
@@ -79,7 +71,6 @@
                     </webAppConfig>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
